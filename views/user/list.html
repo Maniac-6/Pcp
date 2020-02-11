@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block body %}
+  <head>
+    <title> User list </title>
+  </head>
+<h2>Liste des utilisateurs : </h2>
+<body>
+    <body class="body">
+      {% for user in userList %}
+        <li class="username">
+          <a>{{ user.name }} </a>
+          <a href="index.php?c=user&t=upgrade&id={{ user.id }}"> Passer Admin</a>
+        </li>
+      {% endfor %}
+      <hr />
+      <p>Quantity: {{ quantity }} users.</p>
+      <a href= "index.php?c=user&t=new"> nouvel utilisateur</a>
+{% endblock %}

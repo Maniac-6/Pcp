@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="views/css/bootstrap.css">
+  </head>
+<body>
+  <h1> Portefeuille de Compétences </h1>
+    <nav>
+      <ul id="menu">
+        <li><a href="http://195.154.118.169/john/tp/index.php?c=user&t=index">Home</a></li>
+        <li><a href="http://195.154.118.169/john/tp/?c=competence&t=list">Compétences</a></li>
+        <li><a href="http://195.154.118.169/john/tp/?c=tache&t=list">Tâches</a></li>
+        {% if user.admin %}
+          <li><a href="http://195.154.118.169/john/tp/index.php?c=user&t=list">Utilisateurs</a></li>
+        {% endif %}
+        {% if user.id is not null and user is defined %}
+          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/tp/index.php?c=user&t=logout">logout</a></li>
+        {% else %}
+          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/tp/?c=user&t=login">login</a></li>
+        {% endif %}
+      </ul>
+    </nav> 
+    {% if user is defined %}
+      {% if user.admin %}
+        <h3> Rôle admin: {{ user.name }} </h3>
+      {% endif %}
+      {% if user.admin == 0 %}
+        <h3> {{ user.name }} </h3>
+      {% endif %}
+    {%endif%}
+  </body>
+  {% block body %}
+  
+  {% endblock %}
+ <p id="footer">Copyright John ABLIN© </p>
+</html>

@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <head>
+        <title>Tache List</title>
+    </head>
+<h2>Liste des tâches : </h2>
+<body>
+<table class="table">
+
+      
+        {% for tache in taches %}
+        <tr>
+        <td>
+      
+          {{ tache.date|date("d/m/Y") ~ " " ~ tache.description }}
+      
+        </td>
+        {% for competence in tache.competences %}
+           <td>
+              {{competence.lib}}
+           </td>
+        {% endfor %}
+              <td> 
+                  <a href= "index.php?c=tache&t=edit&id={{ tache.id }}">modifier</a>
+                {% if user.admin %}
+                  <a href= "index.php?c=tache&t=remove&id={{ tache.id }}">supprimer</a>
+                {% endif %}
+              </td>
+        <tr/>
+        {% endfor %}
+  </table> 
+  <a href= "index.php?c=tache&t=new"> Ajouter une tâche </t></a>
+{% endblock %}
