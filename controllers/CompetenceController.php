@@ -1,30 +1,124 @@
 <?php
 
+
 namespace Controllers;
 
-use Models\Competences;
+use Entity\Competence;
 
 class CompetenceController extends Controller
 {
   
-public function list($request)
+  public function list($request)
     {
       $user = $request->getUser();
-      $competenceRepository = $request->getEm()->getRepository('Entity\Competence');
-      $competences = $competenceRepository->findAll();
-      
+      $competence = $request->getEm()->getRepository("Entity\Competence")->findAll();
+
       if (NULL == $_SESSION){
-        header('location: http://195.154.118.169/john/tp/index.php?c=user&t=login');
+        header('location: http://195.154.118.169/john/unnatural/index.php?c=user&t=login');
       }
-      
-      foreach ($competences as $competence) {
-         //var_dump(count($competence->getTaches()));
-      }
+    
       echo $this->twig->render('list.html',
         [
-          "competences" => $competences,
           "user" =>$user,
+          "competence" =>$competence,
         ]
       );
     }
+  public function edit($request){
+    $user = $request->getUser();
+    $get = $request->getGet();
+    //var_dump ($get);
+    $competences = $request->getEm()->getRepository("Entity\Competence")->findAll(["id"=> $get["id"]]);
+    
+    echo $this->twig->render('edit.html',
+        [
+          "user" =>$user,
+          "competences" =>$competences,
+        ]
+      );
+  }
+  public function update($request){
+    
+    $entityManager = $request->getEm();
+    $post = $request->getPost();
+    $get = $request->getGet();
+    $tache = $request->getEm()->getRepository("Entity\Tache")->findOneBy(["id"=> $get["id"]]);
+    //$tache->removeCompetence($competence);
+    //var_dump ($get['id']);
+    //var_dump ($tache->getDescription());die;
+    $tache->setDescription($post['description']);
+    $tache->setDate(new \DateTime($post['date']));
+    $tache->setCommentaire($post['commentaire']);
+    
+    $tache->removeCompetences();
+    //var_dump($post['competences']);die;
+    foreach ($post['competences'] as $competence_id){
+         //var_dump( $competence_id);
+      $competence = $entityManager->getRepository(Competence::class)->find($competence_id);
+      $tache->addCompetence($competence);
+      
+    }
+    $entityManager->persist($tache);
+    $entityManager->flush();
+    //var_dump($request->getPost()['competences']);die;
+    
+    echo $this->twig->render('new.html');
+    echo "updated Tache with ID " . $tache->getId() . "\n";
+    /*die('create');*/
+    
+  }
+  public function new($request){
+    $user = $request->getUser();
+    $tache = new Tache();
+    $competences = $request->getEm()->getRepository("Entity\Competence")->findAll();
+    
+    echo $this->twig->render('new.html',
+        [
+          "user" =>$user,
+          "tache" => $tache,
+          "competences" =>$competences,
+        ]
+      );
+  }
+  
+  public function create($request){
+    //var_dump("plop",$request->getPost(),$request->getGet());die;
+    
+    $entityManager = $request->getEm();
+    $post= $request->getPost();
+    $tache = new Tache();
+    $dt=new \Datetime($post['date']);
+    
+    
+    $tache->setDescription($post['description']);
+    $tache->setDate($dt);
+    $tache->setCommentaire($post['commentaire']);
+    
+    foreach ($post['competences'] as $competence_id){
+         //var_dump( $competence_id);
+      $competence = $entityManager->getRepository(Competence::class)->find($competence_id);
+      $tache->addCompetence($competence);
+      
+    }
+    //var_dump($request->getPost()['competences']);die;
+    $entityManager->persist($tache);
+    $entityManager->flush();
+    echo $this->twig->render('new.html');
+    echo "Created Tache with ID " . $tache->getId() . "\n";
+    /*die('create');*/
+  }
+  
+  public function remove($request){
+    $entityManager = $request->getEm();
+    $get = $request->getGet();
+    $id = $get["id"];
+
+    $tache = $entityManager->getRepository("Entity\Tache")->find($id);
+    
+    $entityManager->remove($tache);
+    $entityManager->flush();
+    
+    echo $this->twig->render('list.html');
+    echo "Tache deleted" . $tache->getId() . "\n";
+  }
 }

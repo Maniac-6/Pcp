@@ -58,9 +58,11 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #C0C0C0;
+  color: white;
+  text-align: center;
+  background-image:url(../../image/whale.jpg);
+  background-size: 100%;
+  background-repeat: fixed;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -105,7 +107,9 @@ nav ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #2a3439;
+  background-image:("https://img.wallpapersafari.com/desktop/1920/1080/37/78/jdPxpI.jpeg");
+  -moz-border-radius:10px 0;
+  -webkit-border-radius:10px 0;
 }
 
 nav li {
@@ -118,14 +122,16 @@ nav li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  border-radius: 10px;
+  background-color: rgba(174, 187, 219, 0.7);
 }
 
 nav li a:hover {
-  background-color: #C0C0C0;
+  background-color: white;
 }
 
 .active {
-  background-color: #3b5998;
+  background-color: ;
 }
 
 ol,

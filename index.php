@@ -18,7 +18,7 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/entity"),
 // database configuration parameters
 $conn = array(
     'driver' => 'pdo_mysql',
-    'dbname' => 'framework_john',
+    'dbname' => 'john_unnatural',
     'user' => 'john',
     'password' => '2018',
 );

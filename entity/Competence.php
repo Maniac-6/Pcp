@@ -22,28 +22,18 @@ class Competence
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=50, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $code;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lib", type="string", length=255)
-     */
-    private $lib;
+    private $name;
   
-     /**
-     * @ORM\ManyToMany(targetEntity="Tache",mappedBy="competences")
-     */
-    protected $taches;
-    
-    public function __toString() {
-      return $this->lib;
-    }
-
     /**
-     * Get id
+     * @var integer
+     *
+     * @ORM\Column(name="bonus", type="integer", length=2)
+     */
+    private $bonus;
+    /**
+     * Get id.
      *
      * @return int
      */
@@ -53,85 +43,50 @@ class Competence
     }
 
     /**
-     * Set code
+     * Set name.
      *
-     * @param string $code
+     * @param string $name
      *
      * @return Competence
      */
-    public function setCode($code)
+    public function setName($name)
     {
-        $this->code = $code;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get code
+     * Get name.
      *
      * @return string
      */
-    public function getCode()
+    public function getName()
     {
-        return $this->code;
+        return $this->name;
     }
 
     /**
-     * Set lib
+     * Set bonus.
      *
-     * @param string $lib
+     * @param int $bonus
      *
      * @return Competence
      */
-    public function setLib($lib)
+    public function setBonus($bonus)
     {
-        $this->lib = $lib;
+        $this->bonus = $bonus;
 
         return $this;
     }
 
     /**
-     * Get lib
+     * Get bonus.
      *
-     * @return string
+     * @return int
      */
-    public function getLib()
+    public function getBonus()
     {
-        return $this->lib;
-    }
-    /**
-     * Add tach.
-     *
-     * @param \Entity\Tache $tach
-     *
-     * @return Competence
-     */
-    public function addTache(\Entity\Tache $tache)
-    {
-        $this->taches[] = $tache;
-
-        return $this;
-    }
-
-    /**
-     * Remove tach.
-     *
-     * @param \Entity\Tache $tach
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeTache(\Entity\Tache $tache)
-    {
-        return $this->taches->removeElement($tache);
-    }
-
-    /**
-     * Get taches.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTaches()
-    {
-        return $this->taches;
+        return $this->bonus;
     }
 }
