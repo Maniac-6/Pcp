@@ -1,6 +1,6 @@
 {
     "name": "john/tp",
-    "description": "tp du 30  09 19",
+    "description": "PCP",
     "type": "project",
     "require": {
         "vlucas/spot2": "^2.2",

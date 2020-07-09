@@ -8,26 +8,34 @@
 <table class="table">
 
       
-        {% for tache in taches %}
-        <tr>
-        <td>
-      
-          {{ tache.date|date("d/m/Y") ~ " " ~ tache.description }}
-      
-        </td>
+ {% for tache in taches %}
+  <tr>
+     <td>
+
+      <div>
+        {{ tache.date|date("d/m/Y") }}
+      </div>
+      {{ tache.description }}
+      <div>
+        {{tache.commentaire}}
+      </div>
+      <div>
+          <a href= "index.php?c=tache&t=edit&id={{ tache.id }}">modifier</a>
+        {% if user.admin %}
+          <a href= "index.php?c=tache&t=remove&id={{ tache.id }}">supprimer</a>
+        {% endif %}
+      </div>
+
+      <td>
         {% for competence in tache.competences %}
-           <td>
-              {{competence.lib}}
-           </td>
+
+          <li>{{competence.code}} - {{competence.lib}}</li>
+
         {% endfor %}
-              <td> 
-                  <a href= "index.php?c=tache&t=edit&id={{ tache.id }}">modifier</a>
-                {% if user.admin %}
-                  <a href= "index.php?c=tache&t=remove&id={{ tache.id }}">supprimer</a>
-                {% endif %}
-              </td>
-        <tr/>
-        {% endfor %}
+      </td>
+ <tr/>
+{% endfor %}
+  </td>
   </table> 
   <a href= "index.php?c=tache&t=new"> Ajouter une tâche </t></a>
 {% endblock %}

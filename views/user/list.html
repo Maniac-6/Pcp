@@ -10,6 +10,11 @@
         <li class="username">
           <a>{{ user.name }} </a>
           <a href="index.php?c=user&t=upgrade&id={{ user.id }}"> Passer Admin</a>
+          <script type="text/javascript">
+            function ouvre_popup(page) {
+              window.open(page,"popup.html","menubar=no, status=no, scrollbars=no, menubar=no, width=200, height=100");
+            }
+          </script>
         </li>
       {% endfor %}
       <hr />

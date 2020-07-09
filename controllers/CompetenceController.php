@@ -14,7 +14,7 @@ public function list($request)
       $competences = $competenceRepository->findAll();
       
       if (NULL == $_SESSION){
-        header('location: http://195.154.118.169/john/tp/index.php?c=user&t=login');
+        header('location: http://195.154.118.169/john/pcp/index.php?c=user&t=login');
       }
       
       foreach ($competences as $competence) {

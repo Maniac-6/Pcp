@@ -5,22 +5,24 @@
     <link rel="stylesheet" href="views/css/bootstrap.css">
   </head>
 <body>
-  <h1> Portefeuille de Compétences </h1>
+  <h3> 
     <nav>
       <ul id="menu">
-        <li><a href="http://195.154.118.169/john/tp/index.php?c=user&t=index">Home</a></li>
-        <li><a href="http://195.154.118.169/john/tp/?c=competence&t=list">Compétences</a></li>
-        <li><a href="http://195.154.118.169/john/tp/?c=tache&t=list">Tâches</a></li>
+        <li><a href="http://195.154.118.169/john/pcp/index.php?c=user&t=index">Home</a></li>
+        <li><a href="http://195.154.118.169/john/pcp/?c=competence&t=list">Compétences</a></li>
+        <li><a href="http://195.154.118.169/john/pcp/?c=tache&t=list">Tâches</a></li>
+        <li><a href="http://195.154.118.169/john/pcp/doc.sphinx/build/html/index.html">Documentation</a></li>
         {% if user.admin %}
-          <li><a href="http://195.154.118.169/john/tp/index.php?c=user&t=list">Utilisateurs</a></li>
+          <li><a href="http://195.154.118.169/john/pcp/index.php?c=user&t=list">Utilisateurs</a></li>
         {% endif %}
         {% if user.id is not null and user is defined %}
-          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/tp/index.php?c=user&t=logout">logout</a></li>
+          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/pcp/index.php?c=user&t=logout">logout</a></li>
         {% else %}
-          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/tp/?c=user&t=login">login</a></li>
+          <li style= "float:right"><a class="active" href="http://195.154.118.169/john/pcp/?c=user&t=login">login</a></li>
         {% endif %}
       </ul>
-    </nav> 
+    </nav>
+   </h3>
     {% if user is defined %}
       {% if user.admin %}
         <h3> Rôle admin: {{ user.name }} </h3>

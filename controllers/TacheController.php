@@ -17,7 +17,7 @@ class TacheController extends Controller
       $taches = $tacheRepository->findAll();
 
       if (NULL == $_SESSION){
-        header('location: http://195.154.118.169/john/tp/index.php?c=user&t=login');
+        header('location: http://195.154.118.169/john/pcp/index.php?c=user&t=login');
       }
     
       echo $this->twig->render('list.html',
@@ -54,7 +54,7 @@ class TacheController extends Controller
     //var_dump ($tache->getDescription());die;
     $tache->setDescription($post['description']);
     $tache->setDate(new \DateTime($post['date']));
-
+    $tache->setCommentaire($post['commentaire']);
     
     $tache->removeCompetences();
     //var_dump($post['competences']);die;
@@ -68,7 +68,7 @@ class TacheController extends Controller
     $entityManager->flush();
     //var_dump($request->getPost()['competences']);die;
     
-
+    echo $this->twig->render('new.html');
     echo "updated Tache with ID " . $tache->getId() . "\n";
     /*die('create');*/
     
@@ -98,6 +98,7 @@ class TacheController extends Controller
     
     $tache->setDescription($post['description']);
     $tache->setDate($dt);
+    $tache->setCommentaire($post['commentaire']);
     
     foreach ($post['competences'] as $competence_id){
          //var_dump( $competence_id);
@@ -108,8 +109,22 @@ class TacheController extends Controller
     //var_dump($request->getPost()['competences']);die;
     $entityManager->persist($tache);
     $entityManager->flush();
-
+    echo $this->twig->render('new.html');
     echo "Created Tache with ID " . $tache->getId() . "\n";
     /*die('create');*/
+  }
+  
+  public function remove($request){
+    $entityManager = $request->getEm();
+    $get = $request->getGet();
+    $id = $get["id"];
+
+    $tache = $entityManager->getRepository("Entity\Tache")->find($id);
+    
+    $entityManager->remove($tache);
+    $entityManager->flush();
+    
+    echo $this->twig->render('list.html');
+    echo "Tache deleted" . $tache->getId() . "\n";
   }
 }

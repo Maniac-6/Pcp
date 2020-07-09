@@ -15,7 +15,7 @@ class UserController extends Controller
         $user = $request->getUser();
         //var_dump($user);
         if (NULL == $_SESSION){
-          header('location: http://195.154.118.169/john/tp/index.php?c=user&t=login');
+          header('location: http://195.154.118.169/john/pcp/index.php?c=user&t=login');
         }
         echo $this->twig->render('accueil.html', [
           'user' => $user,
@@ -37,7 +37,7 @@ class UserController extends Controller
       $entityManager->flush();
         
       $this->flash[] = "A new user has been created: " . $user->Getname();
-      header('location: http://195.154.118.169/john/tp/index.php?c=user&t=login');
+      header('location: http://195.154.118.169/john/pcp/index.php?c=user&t=login');
     }
     
     public function new ($request){
@@ -82,7 +82,7 @@ class UserController extends Controller
             echo "Bienvenue " . $user->getName()."!";
             session_start();
             $_SESSION["id"]=$user->getID();
-            header('location: http://195.154.118.169/john/tp/index.php?c=user&t=index');
+            header('location: http://195.154.118.169/john/pcp/index.php?c=user&t=index');
            
         
           }
@@ -134,7 +134,7 @@ class UserController extends Controller
       $entityManager->persist($user);
       $entityManager->flush();
       
-      $message = "Admin attribué pour ID " . $user->getId() . "\n";
-      echo "<script type='text/javascript'>alert('$message');</script>";
+        echo $this->twig->render('list.html');
+        echo "Admin attribué pour ID " . $user->getId() . "\n";
     }
 }

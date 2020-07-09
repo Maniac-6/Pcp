@@ -6,22 +6,46 @@
 <h2>Liste des compétences : </h2>
       
 <table class="table">
+  <td style="background-color :#2a3439" text-align: center >Compétences Obligatoires</td>
+  <td style="background-color :#2a3439" text-align: center >Validité </td>
+  <tr> 
+    {% for competence in competences %}
+      {% if competence.code == null %}
+        <td>{{ competence.code }} {{ competence.lib }} </td>
+          {% if competence.taches|length >0 %}
+            {% for tache in competence.taches %}
+              {% if competence.id == tache.id %}
+                <td><font size="5px"> &#10004;&#65039;</font></td>
+              {% else %}
+                <td ><span style="color:#FFFFF0" text-align: center ><font size="5px"> &#10004;&#65039;</font></span></td>
+              {% endif %}
+            {% endfor %}
+              {% else %}
+                <td><font size="2px"> &#x274C;</font></td>
+          {% endif %}
+      {% endif %}
+  </tr>  
+    {% endfor %}
+</table>
+<table class="table">
   <td style="background-color :#2a3439" text-align: center >Compétences </td>
   <td style="background-color :#2a3439" text-align: center >Validité </td>
   <tr> 
     {% for competence in competences %}
-      <td>{{ competence.code }} {{ competence.lib }} </td>
-        {% if competence.taches|length > 0 %}
-          {% for tache in competence.taches %}
-            {% if competence.id == tache.id %}
-              <td><font size="5px"> &#x274C;</font></td>
-            {% else %}
-              <td ><span style="color:#FFFFF0" text-align: center ><font size="5px"> &#10004;&#65039;</font></span></td>
-            {% endif %}
-          {% endfor %}
-            {% else %}
-              <td><font size="2px"> &#x274C;</font></td>
-        {% endif %}
+      {% if competence.code != null %}
+        <td>{{ competence.code }} {{ competence.lib }} </td>
+          {% if competence.taches|length > 0 %}
+            {% for tache in competence.taches %}
+              {% if competence.id == tache.id %}
+                <td><font size="5px"> &#10004;&#65039;</font></td>
+              {% else %}
+                <td ><span style="color:#FFFFF0" text-align: center ><font size="5px"> &#10004;&#65039;</font></span></td>
+              {% endif %}
+            {% endfor %}
+              {% else %}
+                <td><font size="2px"> &#x274C;</font></td>
+          {% endif %}
+     {% endif %}
   </tr>  
     {% endfor %}
 </table>
